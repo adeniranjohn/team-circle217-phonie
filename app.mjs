@@ -18,6 +18,7 @@ It's divided into 4 parts
 */
   //First to get our input
   var raw_number = document.getElementById("phone").value;//This is the input that was put into the form on the html end
+  var notify = document.getElementById("notify");
 
   function prefixCollector(rawnum) {
     //We need to differentiate numbers with country code from numbers without country code
@@ -54,22 +55,32 @@ It's divided into 4 parts
   function displayImage(num_from_page) {
     let telco = numberChecker(num_from_page);
     if (telco == "invalid") {
-      alert("This number is not invalid");
+        notification("The number is not valid")
+       document.getElementById('logo_box').innerHTML = '';
     } else if ((document.getElementById("logo_image") === null)) {
+      notification("")
       var a = document.createElement("img");
       a.src = "icons/" + telco + ".svg";
-      a.width = 100;
-      a.height = 100;
+      a.width = 30;
       a.id = 'logo_image';
       a.alt = telco + ".jpg";
       document.getElementById('logo_box').appendChild(a);
     } else {
-      alert("small work still remain")
+       document.getElementById('logo_box').innerHTML = ''
+      notification("small work still remain")
     }
 
   }
-  displayImage(raw_number);
+
+  displayImage(raw_number)
+
 }
+ 
+
+      function notification(info){
+        notify.innerHTML = info;
+      }
+    
 /*  
     const header = document.querySelector('h2');
     if(header) {
