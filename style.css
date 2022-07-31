@@ -6,8 +6,32 @@ body{
   background: #7d2ae8;
   padding: 30px;
 }
+
+label,small {
+  display: block
+}
 div#logo_box {
   display:inline;
+  padding: 0;
+    margin-top: 2rem;
+  width: 2rem;
+  height:2rem;
+
+}
+div.inputWithLogo {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+input {
+  padding: 0.2rem;
+}
+
+img {
+
+  padding: 0 0.5rem;
+  background-position:bottom;
+  vertical-align: middle;
 }
 
 small#notify {

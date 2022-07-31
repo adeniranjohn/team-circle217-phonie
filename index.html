@@ -13,15 +13,13 @@
 <body>
   <form>
     <label for="phone">Enter a phone number:</label>
-    <br>
     <small id="notify"></small>
-    <br>
-    
-    <input type="tel" id="phone" name="phone" placeholder="0123-456-7890"
-      pattern="0([7,8,9])([0,1])\d{8}$|234([7,8,9])([0,1])\d{8}$" required><div id="logo_box"></div>
-    <br>
-    <small>Format: 09**-***-*** or 2348**-***-***</small><br>
-    <button id="button_app">Show Network</button>
+    <div class="inputWithLogo">
+      <input type="tel" id="phone" name="phone" placeholder="0123-456-7890"
+      pattern="0([7,8,9])([0,1])\d{8}$|234([7,8,9])([0,1])\d{8}$" required>
+      <div id="logo_box"></div>
+      </div>
+    <small>Format: 09**-***-*** or 2348**-***-***</small>
   </form>
 
 

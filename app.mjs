@@ -17,17 +17,15 @@ It's divided into 4 parts
 *Function 3 startApp basically houses all the functions. it's the function we'll export and it takes an argument. The Argument is the telco prefix.
 */
   //First to get our input
-  var raw_number = document.getElementById("phone").value;//This is the input that was put into the form on the html end
+  var raw_number = document.getElementById("phone").value;
+  //This is the input that was put into the form on the html end
   var notify = document.getElementById("notify");
 
   function prefixCollector(rawnum) {
     //We need to differentiate numbers with country code from numbers without country code
-    if (rawnum.slice(0, 3) == "234") {
-      return rawnum.slice(3, 6); // if it starts with 234, i'll take the next 3 digits eg. 803
-    } else {
-      return rawnum.slice(1, 4); //if it doesn't, meaning it starts with 0, i'll take the 2nd to 4th digits
+    return (rawnum.slice(0, 3) == "234") ? rawnum.slice(3, 6) : rawnum.slice(1, 4);
     }
-  }
+  
 
   function numberChecker(number) { //This function takes in an argument number and check if it's mtn, glo or 9mobile
     /*For now, first thing i want to do is create the arrays for the various telco companies. */
@@ -37,45 +35,62 @@ It's divided into 4 parts
     const ninemobile_array = [809, 817, 818, 908, 909];//9mobile
     //The reason i am using 803 instead of 0803 is to account for those that put number in using country code as that would read as 234809 instead of 2340809
     /* Now, i'll create a function that checks for a certain set of numbers within the array and produce a string being mtn, glo, airtel or 9mobile.*/
-    let prefix = parseInt(prefixCollector(number)); //This takes the prefix gotten from the prefixcollector function and converts to integer
-    if (mtn_array.includes(prefix)) {//Checks if it's mtn
+   let prefix = parseInt(prefixCollector(number)); //This takes the prefix gotten from the prefixcollector function and converts to integer
+if(mtn_array.includes(prefix)) {
+        //Checks if it's mtn
       return "MTN";
-    } else if (glo_array.includes(prefix)) {// checks if it's glo
+    } else if (glo_array.includes(prefix)) {
+        // checks if it's glo
       return "GLO";
-    } else if (airtel_array.includes(prefix)) {//checks if it's airtel
+    } else if (airtel_array.includes(prefix)) {
+        //checks if it's airtel
       return "AIRTEL";
-    } else if (ninemobile_array.includes(prefix)) {// checks if it's 9mobile
+    } else if (ninemobile_array.includes(prefix)) {
+        // checks if it's 9mobile
       return "9MOBILE";
-    } else { //returns invalid as we'll be dealing with just this 4 carriers
-      return "invalid";
-    }
+    } else { 
+         //returns invalid as we'll be dealing with just this 4 carriers
+          if(prefix.toString().length<4){
+              return "STILL TYPING"
+          }else{
+            return "INVALID"
+          }    
+
+        }
+      
   }
 
   //Finally we'll need to return a picture after the numberChecker function is done.
   function displayImage(num_from_page) {
-    let telco = numberChecker(num_from_page);
-    if (telco == "invalid") {
-        notification("The number is not valid")
-       document.getElementById('logo_box').innerHTML = '';
-    } else if ((document.getElementById("logo_image") === null)) {
-      notification("")
+
+    var telco = numberChecker(num_from_page);
+    console.log(telco)
+    if(telco == "STILL TYPING"){
+         notification("")
+        document.getElementById('logo_box').innerHTML = '';
+    }else if(telco == ('MTN'||'GLO'||'AIRTEL'||'9MOBILE')) {
+
+      notification('')
       var a = document.createElement("img");
       a.src = "icons/" + telco + ".svg";
       a.width = 30;
+      a.height = 30;
       a.id = 'logo_image';
       a.alt = telco + ".jpg";
+      document.getElementById('logo_box').innerHTML = '';
       document.getElementById('logo_box').appendChild(a);
-    } else {
-       document.getElementById('logo_box').innerHTML = ''
-      notification("small work still remain")
+    }else if(telco == "INVALID"){
+        notification("The Phone number is not valid")
+        document.getElementById('logo_box').innerHTML = '';
+    }else{
+      notification("")
     }
-
   }
 
   displayImage(raw_number)
 
 }
- 
+
 
       function notification(info){
         notify.innerHTML = info;
