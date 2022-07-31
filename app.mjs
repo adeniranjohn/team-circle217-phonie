@@ -48,14 +48,16 @@ if(mtn_array.includes(prefix)) {
     } else if (ninemobile_array.includes(prefix)) {
         // checks if it's 9mobile
       return "9MOBILE";
-    } else { 
+    } else  {
+  if(prefix.toString().length<3){ 
          //returns invalid as we'll be dealing with just this 4 carriers
-          if(prefix.toString().length<4){
-              return "STILL TYPING"
-          }else{
-            return "INVALID"
-          }    
+      console.log(prefix)
+            return "STILL TYPING"
 
+        }else{
+    console.log(prefix)
+  return "INVALID"
+  }
         }
       
   }
@@ -64,12 +66,11 @@ if(mtn_array.includes(prefix)) {
   function displayImage(num_from_page) {
 
     var telco = numberChecker(num_from_page);
-    console.log(telco)
-    if(telco == "STILL TYPING"){
+
+    if(["STILL TYPING"].includes(telco)){
          notification("")
         document.getElementById('logo_box').innerHTML = '';
-    }else if(telco == ('MTN'||'GLO'||'AIRTEL'||'9MOBILE')) {
-
+    }else if(['MTN','GLO','AIRTEL','9MOBILE'].includes(telco)) {
       notification('')
       var a = document.createElement("img");
       a.src = "icons/" + telco + ".svg";
@@ -79,7 +80,7 @@ if(mtn_array.includes(prefix)) {
       a.alt = telco + ".jpg";
       document.getElementById('logo_box').innerHTML = '';
       document.getElementById('logo_box').appendChild(a);
-    }else if(telco == "INVALID"){
+    }else if(["INVALID"].includes(telco)){
         notification("The Phone number is not valid")
         document.getElementById('logo_box').innerHTML = '';
     }else{
