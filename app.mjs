@@ -51,11 +51,11 @@ if(mtn_array.includes(prefix)) {
     } else  {
   if(prefix.toString().length<3){ 
          //returns invalid as we'll be dealing with just this 4 carriers
-      console.log(prefix)
+
             return "STILL TYPING"
 
         }else{
-    console.log(prefix)
+
   return "INVALID"
   }
         }
